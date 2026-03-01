@@ -1,5 +1,6 @@
 import BestsellerCategory from "./BestsellerCategory";
 import CarouselWithCata from "./CarouselWithCata";
+import LimitedOffers from "./LimitedOffer";
 
 
 const Home = () => {
@@ -10,6 +11,9 @@ const Home = () => {
             </section>
             <section className="mt-5">
                 <BestsellerCategory></BestsellerCategory>
+            </section>
+            <section className="mt-5">
+                <LimitedOffers></LimitedOffers>
             </section>
         </div>
     );
