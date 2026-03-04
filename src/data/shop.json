@@ -1,0 +1,219 @@
+{
+  "divisions": [
+    {
+      "name": "Dhaka",
+      "districts": [
+        {
+          "name": "Dhaka",
+          "shops": [
+            {
+              "id": 1,
+              "name": "Dhaka Main Branch",
+              "address": "Dhanmondi 27, Dhaka",
+              "lat": 23.7465,
+              "lng": 90.3760
+            },
+            {
+              "id": 2,
+              "name": "Gulshan Branch",
+              "address": "Gulshan 1, Dhaka",
+              "lat": 23.7806,
+              "lng": 90.4194
+            },
+            {
+              "id": 3,
+              "name": "Mirpur Branch",
+              "address": "Mirpur 10, Dhaka",
+              "lat": 23.8103,
+              "lng": 90.3650
+            }
+          ]
+        },
+        {
+          "name": "Narsingdi",
+          "shops": [
+            {
+              "id": 4,
+              "name": "Narsingdi Central",
+              "address": "Narsingdi Sadar",
+              "lat": 23.9250,
+              "lng": 90.7170
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chattogram",
+      "districts": [
+        {
+          "name": "Chattogram",
+          "shops": [
+            {
+              "id": 5,
+              "name": "Chattogram City Shop",
+              "address": "Agrabad, Chattogram",
+              "lat": 22.3382,
+              "lng": 91.8325
+            },
+            {
+              "id": 6,
+              "name": "Pahartali Branch",
+              "address": "Pahartali, Chattogram",
+              "lat": 22.3145,
+              "lng": 91.7822
+            }
+          ]
+        },
+        {
+          "name": "Cumilla",
+          "shops": [
+            {
+              "id": 7,
+              "name": "Cumilla Main Branch",
+              "address": "Kandirpar, Cumilla",
+              "lat": 23.4602,
+              "lng": 91.1800
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Khulna",
+      "districts": [
+        {
+          "name": "Khulna",
+          "shops": [
+            {
+              "id": 8,
+              "name": "Khulna City Shop",
+              "address": "Sonadanga, Khulna",
+              "lat": 22.8166,
+              "lng": 89.5611
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rajshahi",
+      "districts": [
+        {
+          "name": "Rajshahi",
+          "shops": [
+            {
+              "id": 9,
+              "name": "Rajshahi Main Branch",
+              "address": "Shaheb Bazar, Rajshahi",
+              "lat": 24.3745,
+              "lng": 88.6042
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sylhet",
+      "districts": [
+        {
+          "name": "Sylhet",
+          "shops": [
+            {
+              "id": 10,
+              "name": "Sylhet Central",
+              "address": "Subid Bazar, Sylhet",
+              "lat": 24.8949,
+              "lng": 91.8687
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Barishal",
+      "districts": [
+        {
+          "name": "Barishal",
+          "shops": [
+            {
+              "id": 11,
+              "name": "Barishal Shop",
+              "address": "College Road, Barishal",
+              "lat": 22.7010,
+              "lng": 90.3535
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rangpur",
+      "districts": [
+        {
+          "name": "Rangpur",
+          "shops": [
+            {
+              "id": 12,
+              "name": "Rangpur Branch",
+              "address": "Sadar, Rangpur",
+              "lat": 25.7439,
+              "lng": 89.2750
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mymensingh",
+      "districts": [
+        {
+          "name": "Mymensingh",
+          "shops": [
+            {
+              "id": 13,
+              "name": "Mymensingh Shop",
+              "address": "Kewatkhali, Mymensingh",
+              "lat": 24.7471,
+              "lng": 90.4203
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Jessore",
+      "districts": [
+        {
+          "name": "Jessore",
+          "shops": [
+            {
+              "id": 14,
+              "name": "Jessore Main Branch",
+              "address": "Chowmuhani, Jessore",
+              "lat": 23.1700,
+              "lng": 89.2036
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Noakhali",
+      "districts": [
+        {
+          "name": "Noakhali",
+          "shops": [
+            {
+              "id": 15,
+              "name": "Noakhali Branch",
+              "address": "Maijdee, Noakhali",
+              "lat": 22.8035,
+              "lng": 91.1003
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import Accordion from "./Acccordion";
 import BestsellerCategory from "./BestsellerCategory";
 import CarouselWithCata from "./CarouselWithCata";
+import ContactPage from "./ContactPage";
 import LimitedOffers from "./Lmitedoffer";
 
 
@@ -17,6 +18,9 @@ const Home = () => {
                 <LimitedOffers></LimitedOffers>            </section>
             <section className="mt-5">
                 <Accordion></Accordion>            </section>
+            <section className="mt-5">
+                <ContactPage></ContactPage>
+            </section>
         </div>
     );
 };

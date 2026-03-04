@@ -4,3 +4,7 @@
 
 /* Flowbite styles */
 @import "flowbite";
+
+body {
+  font-family: "Inter", sans-serif;
+}

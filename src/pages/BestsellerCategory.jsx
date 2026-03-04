@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "./shared/CartContext";
+import { FaCartPlus } from "react-icons/fa6";
 
 function BestsellerCategory() {
     const categories = ["mobile", "laptop", "electronics", "accessories"];
@@ -8,6 +9,7 @@ function BestsellerCategory() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const { addToCart } = useCart();
+    console.log(products)
     // Fetch products by category
     useEffect(() => {
         const fetchProducts = async () => {
@@ -34,16 +36,19 @@ function BestsellerCategory() {
         <div className="max-w-7xl mx-auto px-4 py-8">
             {/* Header & Category Buttons */}
             <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
-                <h1 className="text-2xl font-bold">Bestseller in Category</h1>
+                <h1 className="text-4xl font-bold"> <span className="text-2xl font-bold bg-gradient-to-r from-[#A66BB8] via-[#824694] to-[#5E2F6D] bg-clip-text text-transparent text-4xl">
+                    Bestsellers
+                </span> in Category</h1>
                 <div className="flex gap-2 flex-wrap">
                     {categories.map((cat) => (
                         <button
-                            type="button" // ✅ prevent scroll jump
+                            type="button"
                             key={cat}
                             onClick={() => setSelected(cat)}
-                            className={`px-4 py-2 rounded transition-colors duration-300 ${selected === cat
-                                ? "bg-blue-500 text-white"
-                                : "bg-gray-300 text-gray-700 hover:bg-gray-400"
+                            className={`px-4 py-2 rounded-full font-medium transition-all duration-300
+    ${selected === cat
+                                    ? "bg-[#4732d1] text-white"
+                                    : "bg-gray-200 text-black hover:bg-[#4732d1] hover:text-white"
                                 }`}
                         >
                             {cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -66,40 +71,28 @@ function BestsellerCategory() {
                         ))
                     : products.length > 0
                         ? products.map((p) => (
-                            <div
-                                key={p._id}
-                                className="bg-white block p-4 border border-gray-200 rounded-lg shadow hover:shadow-md flex flex-col"
-                            >
-                                <div className="mb-4">
-                                    <img
-                                        className="w-full h-48 object-cover rounded-lg"
-                                        src={p.image || "/placeholder.jpg"}
-                                        alt={p.name}
-                                    />
-                                </div>
-                                <div className="flex-1">
-                                    <h5 className="text-lg font-semibold mb-2">{p.name}</h5>
-                                    {p.price && (
-                                        <p className="text-gray-700 mb-2 font-medium">
-                                            Price: ${p.price}
+                            <div key={p._id} className="w-full md:w-[55%] border border-gray-300 rounded-lg  relative overflow-hidden">
+
+                                {/* product image */}
+                                <img alt="product/image" src={p.image}
+                                    className="w-full" />
+
+                                {/* product details */}
+                                <div className="mt-2 p-4">
+                                    <span className="text-gray-400 dark:text-slate-400 text-[0.9rem]">{p.category.toUpperCase()}</span>
+                                    <h3 className=" dark:text-[#abc2d3] font-semibold mt-2">{p.name}</h3>
+
+                                    <div className="flex justify-between items-center mt-2 border-t border-gray-200 pt-2">
+                                        <p className="text-[1.1rem] font-semibold mt-1 text-[#0FABCA]">
+                                            ${Number(p.price || 0).toFixed(2)}
                                         </p>
-                                    )}
-                                    {p.specifications && (
-                                        <p className="text-gray-500 text-sm line-clamp-3">
-                                            {p.specifications}
-                                        </p>
-                                    )}
-                                </div>
-                                <div className="flex gap-2 mt-4">
-                                    <button onClick={() => addToCart(p, 1)} className="flex-1 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-300">
-                                        Add to Cart
-                                    </button>
-                                    <Link
-                                        to={`/product-details/${p._id}`}
-                                        className="flex-1 border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 transition-colors duration-300 text-center"
-                                    >
-                                        View Details
-                                    </Link>
+                                        <button
+                                            onClick={() => addToCart(p, 1)}
+                                            className=" text-black px-4 py-2 rounded "
+                                        >
+                                            <FaCartPlus />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         ))
