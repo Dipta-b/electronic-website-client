@@ -47,7 +47,7 @@ function AppNavbar() {
           <NavbarLink href="#">About</NavbarLink>
           <NavbarLink href="#">Services</NavbarLink>
           <NavbarLink href="#">Pricing</NavbarLink>
-          <NavbarLink href="#">Contact</NavbarLink>
+          <NavLink to="/cart" className="">Cart</NavLink>
         </div>
 
         {/* Right Avatar & Dropdown */}
@@ -87,14 +87,14 @@ function AppNavbar() {
             {user && (
               <>
                 <DropdownItem
-  onClick={() => {
-    if (user.role === "user") navigate("/dashboard/user");
-    if (user.role === "admin") navigate("/dashboard/admin");
-    if (user.role === "superadmin") navigate("/dashboard/superadmin");
-  }}
->
-  Dashboard
-</DropdownItem>
+                  onClick={() => {
+                    if (user.role === "user") navigate("/dashboard/user");
+                    if (user.role === "admin") navigate("/dashboard/admin");
+                    if (user.role === "superadmin") navigate("/dashboard/superadmin");
+                  }}
+                >
+                  Dashboard
+                </DropdownItem>
                 <DropdownItem>
                   <NavLink to="/settings" className="w-full">Settings</NavLink>
                 </DropdownItem>

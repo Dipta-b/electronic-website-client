@@ -10,35 +10,46 @@ const ProductForm = () => {
     const [uploading, setUploading] = useState(false);
     const [preview, setPreview] = useState("");
 
-    const handleImageUpload = async () => {
-        const imageUrl = watch("imageInput");
-        if (!imageUrl) return alert("Please enter an image URL");
+    const handleFileUpload = async (e) => {
+        if (!e?.target?.files || e.target.files.length === 0) return;
 
+        const file = e.target.files[0];
         setUploading(true);
-        try {
-            const response = await fetch(imageUrl);
-            const blob = await response.blob();
-            const formData = new FormData();
-            formData.append("image", blob);
 
-            const imgbbRes = await fetch(
+        try {
+            const formData = new FormData();
+            formData.append("image", file);
+
+            const res = await fetch(
                 `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
-                { method: "POST", body: formData }
+                {
+                    method: "POST",
+                    body: formData
+                }
             );
 
-            const data = await imgbbRes.json();
-            if (!data.success) throw new Error("ImgBB upload failed");
+            const data = await res.json();
+            if (!data.success) throw new Error("Upload failed");
 
             const hostedUrl = data.data.url;
+
             setValue("image", hostedUrl);
             setPreview(hostedUrl);
-            alert("Image uploaded successfully!");
+
         } catch (err) {
             console.error(err);
             alert("Image upload failed");
         } finally {
             setUploading(false);
         }
+    };
+
+    const handleUrlPreview = () => {
+        const url = watch("imageUrl");
+        if (!url) return;
+
+        setValue("image", url);
+        setPreview(url);
     };
 
     const onSubmit = async (data) => {
@@ -74,17 +85,59 @@ const ProductForm = () => {
                     {errors.name && <p className="text-red-500 text-sm mt-1">Name is required</p>}
                 </div>
 
-                {/* Image */}
-                <div>
-                    <label className="block mb-1 font-medium">Image URL</label>
-                    <input type="text" {...register("imageInput")}
-                        placeholder="Paste image URL" className="w-full px-4 py-2 border rounded" />
-                    <button type="button" onClick={handleImageUpload}
-                        className="mt-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
-                        Upload to ImgBB
+                {/* Image Section */}
+                <div className="space-y-3">
+                    <label className="block font-medium">Product Image *</label>
+
+                    {/* URL Input */}
+                    <input
+                        type="text"
+                        {...register("imageUrl")}
+                        placeholder="Paste image URL"
+                        className="w-full px-4 py-2 border rounded"
+                    />
+
+                    <button
+                        type="button"
+                        onClick={handleUrlPreview}
+                        className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600"
+                    >
+                        Use This URL
                     </button>
-                    {uploading && <p className="text-blue-500 text-sm mt-1">Uploading...</p>}
-                    {preview && <img src={preview} alt="Preview" className="mt-3 w-32 rounded" />}
+
+                    <div className="text-center text-gray-400">OR</div>
+
+                    {/* File Upload */}
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileUpload}
+                        className="w-full px-4 py-2 border rounded"
+                    />
+
+                    {uploading && (
+                        <p className="text-blue-500 text-sm">Uploading...</p>
+                    )}
+
+                    {preview && (
+                        <img
+                            src={preview}
+                            alt="Preview"
+                            className="mt-3 w-32 rounded shadow"
+                        />
+                    )}
+
+                    {/* Hidden Final Image Field */}
+                    <input
+                        type="hidden"
+                        {...register("image", { required: true })}
+                    />
+
+                    {errors.image && (
+                        <p className="text-red-500 text-sm">
+                            Product image is required
+                        </p>
+                    )}
                 </div>
 
                 {/* Category */}

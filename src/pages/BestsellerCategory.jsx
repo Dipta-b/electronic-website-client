@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "./shared/CartContext";
 
 function BestsellerCategory() {
     const categories = ["mobile", "laptop", "electronics", "accessories"];
     const [selected, setSelected] = useState("mobile");
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const { addToCart } = useCart();
     // Fetch products by category
     useEffect(() => {
         const fetchProducts = async () => {
@@ -41,8 +42,8 @@ function BestsellerCategory() {
                             key={cat}
                             onClick={() => setSelected(cat)}
                             className={`px-4 py-2 rounded transition-colors duration-300 ${selected === cat
-                                    ? "bg-blue-500 text-white"
-                                    : "bg-gray-300 text-gray-700 hover:bg-gray-400"
+                                ? "bg-blue-500 text-white"
+                                : "bg-gray-300 text-gray-700 hover:bg-gray-400"
                                 }`}
                         >
                             {cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -90,11 +91,11 @@ function BestsellerCategory() {
                                     )}
                                 </div>
                                 <div className="flex gap-2 mt-4">
-                                    <button className="flex-1 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-300">
+                                    <button onClick={() => addToCart(p, 1)} className="flex-1 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-300">
                                         Add to Cart
                                     </button>
                                     <Link
-                                        to={`/products/${p._id}`}
+                                        to={`/product-details/${p._id}`}
                                         className="flex-1 border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 transition-colors duration-300 text-center"
                                     >
                                         View Details

@@ -1,6 +1,7 @@
+import Accordion from "./Acccordion";
 import BestsellerCategory from "./BestsellerCategory";
 import CarouselWithCata from "./CarouselWithCata";
-import LimitedOffers from "./LimitedOffer";
+import LimitedOffers from "./Lmitedoffer";
 
 
 const Home = () => {
@@ -13,8 +14,9 @@ const Home = () => {
                 <BestsellerCategory></BestsellerCategory>
             </section>
             <section className="mt-5">
-                <LimitedOffers></LimitedOffers>
-            </section>
+                <LimitedOffers></LimitedOffers>            </section>
+            <section className="mt-5">
+                <Accordion></Accordion>            </section>
         </div>
     );
 };

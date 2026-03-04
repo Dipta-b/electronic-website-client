@@ -8,6 +8,8 @@ import UserDashboard from "../pages/dashboard/UserDashboard";
 import AdminDashboard from "../pages/dashboard/AdminDashboard";
 import SuperAdminDashboard from "../pages/dashboard/SuperAdminDashboard";
 import PendingUsers from "../slots/PendingUsers";
+import CartPage from "../pages/CartPage";
+import ProductDetailsPage from "../pages/ProductsDetailsPage";
 
 
 
@@ -28,34 +30,44 @@ const router = createBrowserRouter([
                 path: "/register",
                 element: <Register></Register>
             },
+            {
+                path: "/cart",
+                element: <PrivateRoutes>
+                    <CartPage></CartPage>
+                </PrivateRoutes>
+            },
+            {
+                path: "/product-details/:id",
+                element: <ProductDetailsPage></ProductDetailsPage>
+            },
 
 
 
 
         ],
-},
-{
-    path:'/dashboard/user',
-    element:<PrivateRoutes allowedRoles={["user"]}>
-        <UserDashboard></UserDashboard>
-    </PrivateRoutes>
-},
-{
-    path:'/dashboard/admin',
-    element:<PrivateRoutes allowedRoles={["admin"]}>
-        <AdminDashboard></AdminDashboard>
-    </PrivateRoutes>
-},
-{
-    path:'/dashboard/superadmin',
-    element:<PrivateRoutes allowedRoles={["superadmin"]}>
-        <SuperAdminDashboard></SuperAdminDashboard>
-    </PrivateRoutes>
-},
-// {
-//     path:'dashboard/admin/pending-users',
-//     element:<PendingUsers></PendingUsers>
-// }
+    },
+    {
+        path: '/dashboard/user',
+        element: <PrivateRoutes allowedRoles={["user"]}>
+            <UserDashboard></UserDashboard>
+        </PrivateRoutes>
+    },
+    {
+        path: '/dashboard/admin',
+        element: <PrivateRoutes allowedRoles={["admin"]}>
+            <AdminDashboard></AdminDashboard>
+        </PrivateRoutes>
+    },
+    {
+        path: '/dashboard/superadmin',
+        element: <PrivateRoutes allowedRoles={["superadmin"]}>
+            <SuperAdminDashboard></SuperAdminDashboard>
+        </PrivateRoutes>
+    },
+    // {
+    //     path:'dashboard/admin/pending-users',
+    //     element:<PendingUsers></PendingUsers>
+    // }
 ]);
 
 export default router;
