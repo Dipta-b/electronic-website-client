@@ -20,18 +20,20 @@ import {
   IconSettings,
   IconChartPie3,
   IconLogout,
+  IconGridDots
 } from "@tabler/icons-react";
 import PendingUsers from '../../slots/PendingUsers';
 import { Link } from 'react-router';
 import AdminList from '../../slots/AdminList';
 import ProductForm from '../../slots/ProductForm';
+import AllProducts from '../../slots/AllProducts';
 
 const AdminDashboard = () => {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
 
   // ✅ Track which page is active
-  const [currentPage, setCurrentPage] = useState("home");
+  const [currentPage, setCurrentPage] = useState("allProducts");
 
   return (
     <AppShell
@@ -54,12 +56,12 @@ const AdminDashboard = () => {
 
           <Navbar.Section grow mt="md" component={ScrollArea}>
             <Group direction="column" spacing="sm">
-              <UnstyledButton onClick={() => setCurrentPage("home")}>
+              <UnstyledButton onClick={() => setCurrentPage("allProducts")}>
                 <Group>
                   <ThemeIcon variant="light" color="blue">
-                    <IconHome size={20} />
+                    <IconGridDots size={20} />
                   </ThemeIcon>
-                  <Text>Home</Text>
+                  <Text>All Products</Text>
                 </Group>
               </UnstyledButton>
 
@@ -133,12 +135,13 @@ const AdminDashboard = () => {
     >
       {/* ✨ MAIN CONTENT */}
       <Box p="md">
-        {currentPage === "home" && (
+        {currentPage === "allProducts" && (
           <Box>
             <Text size="xl" weight={700} mb="md">
               Dashboard Overview
+              <button className="btn btn-active btn-primary">Primary</button>
             </Text>
-            <Text>Welcome to your dashboard!</Text>
+            <AllProducts></AllProducts>
           </Box>
         )}
 

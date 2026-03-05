@@ -10,6 +10,8 @@ import SuperAdminDashboard from "../pages/dashboard/SuperAdminDashboard";
 import PendingUsers from "../slots/PendingUsers";
 import CartPage from "../pages/CartPage";
 import ProductDetailsPage from "../pages/ProductsDetailsPage";
+import ProductUpdateForm from "../slots/ProductUpdateForm";
+import SingleProductView from "../slots/SingleProductView";
 
 
 
@@ -39,6 +41,14 @@ const router = createBrowserRouter([
             {
                 path: "/product-details/:id",
                 element: <ProductDetailsPage></ProductDetailsPage>
+            },
+            {
+                path: "/dashboard/products/update/:id",
+                element: <ProductUpdateForm></ProductUpdateForm>
+            },
+            {
+                path: "/dashboard/products/view/:id",
+                element: <SingleProductView></SingleProductView>
             },
 
 

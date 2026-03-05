@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { IoIosSearch } from "react-icons/io";
+
 import {
   Avatar,
   Dropdown,
@@ -48,6 +50,16 @@ function AppNavbar() {
           <NavbarLink href="#">Services</NavbarLink>
           <NavbarLink href="#">Pricing</NavbarLink>
           <NavLink to="/cart" className="">Cart</NavLink>
+
+          {/* search */}
+          <div className="relative md:flex hidden">
+            <input
+              className="py-1.5 dark:bg-transparent dark:border-slate-700 dark:placeholder:text-slate-500 dark:text-[#abc2d3] pr-4 border border-text pl-10 rounded-full outline-none focus:border-[#3B9DF8]"
+              placeholder="Search..." />
+            <IoIosSearch
+              className="absolute top-[9px] dark:text-slate-500 left-3 text-[#424242] text-[1.3rem]" />
+          </div>
+
         </div>
 
         {/* Right Avatar & Dropdown */}

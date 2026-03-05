@@ -1,6 +1,7 @@
 import React from 'react'
 import Carousel from '../slots/Carousel'
 import Slider from '../slots/Slider'
+import AnimatedCard from '../slots/AnimatedCard'
 
 const CarouselWithCata = () => {
     return (
@@ -37,18 +38,10 @@ const CarouselWithCata = () => {
                 </div>
 
                 {/* Right Column (1/5) */}
-                <div className="col-span-1 bg-gray-100 p-4 rounded-lg h-[500px] overflow-y-auto">
-                    <h2 className="text-lg font-bold mb-4">Info / Text</h2>
-                    <p className="mb-4">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                        aliquet dolor libero, eget venenatis mauris finibus dictum.
-                    </p>
-                    <img
-                        src="https://via.placeholder.com/150"
-                        alt="Placeholder"
-                        className="w-full rounded-lg"
-                    />
+                <div className="col-span-1 bg-gray-100  rounded-lg h-[500px] ">
+                    <AnimatedCard></AnimatedCard>
                 </div>
+
             </div>
 
             {/* <div className='mt-8'>
