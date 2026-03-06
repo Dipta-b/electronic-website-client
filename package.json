@@ -20,6 +20,7 @@
     "clsx": "^2.1.1",
     "flowbite": "^4.0.1",
     "flowbite-react": "^0.12.17",
+    "framer-motion": "^12.35.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.576.0",
     "react": "^19.2.0",

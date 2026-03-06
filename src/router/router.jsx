@@ -12,72 +12,79 @@ import CartPage from "../pages/CartPage";
 import ProductDetailsPage from "../pages/ProductsDetailsPage";
 import ProductUpdateForm from "../slots/ProductUpdateForm";
 import SingleProductView from "../slots/SingleProductView";
-
-
+import SearchResult from "../slots/SearchResult";
 
 const router = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+    children: [
+      {
         path: "/",
-        element: <MainLayout></MainLayout>,
-        children: [
-            {
-                path: "/",
-                element: <Home></Home>,
-            },
-            {
-                path: "/login",
-                element: <Login></Login>
-            },
-            {
-                path: "/register",
-                element: <Register></Register>
-            },
-            {
-                path: "/cart",
-                element: <PrivateRoutes>
-                    <CartPage></CartPage>
-                </PrivateRoutes>
-            },
-            {
-                path: "/product-details/:id",
-                element: <ProductDetailsPage></ProductDetailsPage>
-            },
-            {
-                path: "/dashboard/products/update/:id",
-                element: <ProductUpdateForm></ProductUpdateForm>
-            },
-            {
-                path: "/dashboard/products/view/:id",
-                element: <SingleProductView></SingleProductView>
-            },
-
-
-
-
-        ],
-    },
-    {
-        path: '/dashboard/user',
-        element: <PrivateRoutes allowedRoles={["user"]}>
-            <UserDashboard></UserDashboard>
-        </PrivateRoutes>
-    },
-    {
-        path: '/dashboard/admin',
-        element: <PrivateRoutes allowedRoles={["admin"]}>
-            <AdminDashboard></AdminDashboard>
-        </PrivateRoutes>
-    },
-    {
-        path: '/dashboard/superadmin',
-        element: <PrivateRoutes allowedRoles={["superadmin"]}>
-            <SuperAdminDashboard></SuperAdminDashboard>
-        </PrivateRoutes>
-    },
-    // {
-    //     path:'dashboard/admin/pending-users',
-    //     element:<PendingUsers></PendingUsers>
-    // }
+        element: <Home></Home>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
+      {
+        path: "/cart",
+        element: (
+          <PrivateRoutes>
+            <CartPage></CartPage>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/product-details/:id",
+        element: <ProductDetailsPage></ProductDetailsPage>,
+      },
+      {
+        path: "/dashboard/products/update/:id",
+        element: <ProductUpdateForm></ProductUpdateForm>,
+      },
+      {
+        path: "/dashboard/products/view/:id",
+        element: <SingleProductView></SingleProductView>,
+      },
+      {
+        path: "/search-result-page",
+        element: <SearchResult></SearchResult>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard/user",
+    element: (
+      <PrivateRoutes allowedRoles={["user"]}>
+        <UserDashboard></UserDashboard>
+      </PrivateRoutes>
+    ),
+  },
+  {
+    path: "/dashboard/admin",
+    element: (
+      <PrivateRoutes allowedRoles={["admin"]}>
+        <AdminDashboard></AdminDashboard>
+      </PrivateRoutes>
+    ),
+  },
+  {
+    path: "/dashboard/superadmin",
+    element: (
+      <PrivateRoutes allowedRoles={["superadmin"]}>
+        <SuperAdminDashboard></SuperAdminDashboard>
+      </PrivateRoutes>
+    ),
+  },
+  // {
+  //     path:'dashboard/admin/pending-users',
+  //     element:<PendingUsers></PendingUsers>
+  // }
 ]);
 
 export default router;
