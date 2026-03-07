@@ -13,6 +13,8 @@ import ProductDetailsPage from "../pages/ProductsDetailsPage";
 import ProductUpdateForm from "../slots/ProductUpdateForm";
 import SingleProductView from "../slots/SingleProductView";
 import SearchResult from "../slots/SearchResult";
+import CategoryPage from "../pages/CategoryPage";
+import SearchResultPage from "../slots/SearchResultPage";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
       {
         path: "/search-result-page",
         element: <SearchResult></SearchResult>,
+      },
+      {
+        path: "/category/:categoryName",
+        element: <CategoryPage></CategoryPage>,
+      },
+      {
+        path: "/search-result-page-sort",
+        element: <SearchResultPage></SearchResultPage>,
       },
     ],
   },

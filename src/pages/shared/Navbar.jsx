@@ -8,7 +8,7 @@ import {
 } from "flowbite-react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthContext";
-import SearchInput from "../../slots/SearchInput";
+import { HiSearch } from "react-icons/hi";
 
 function Navbar() {
   const { user, setUser } = useContext(AuthContext);
@@ -45,7 +45,7 @@ function Navbar() {
 
   return (
     <nav className="w-full border-b dark:border-slate-700 bg-white dark:bg-slate-900 px-6 py-3">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-6">
         {/* LEFT SECTION */}
         <div className="flex items-center gap-6">
           {/* Logo */}
@@ -85,12 +85,27 @@ function Navbar() {
         </div>
 
         {/* CENTER SEARCH */}
-        <div className="flex w-[420px]">
-          <SearchInput
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-            placeholders={placeholders}
-          />
+        <div className="flex-1 max-w-xl mx-6 ">
+          <div className="relative">
+            <input
+              type="text"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder={
+                placeholders[Math.floor(Math.random() * placeholders.length)]
+              }
+              className="w-full border rounded-lg px-4 py-2 pr-10 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+            />
+
+            <Link
+              to={`/search-result-page?${new URLSearchParams({
+                query: searchValue || "",
+              }).toString()}`}
+              className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-500"
+            >
+              <HiSearch className="text-xl" />
+            </Link>
+          </div>
         </div>
 
         {/* RIGHT SECTION */}
