@@ -7,7 +7,6 @@ import PrivateRoutes from "./PrivateRoutes";
 import UserDashboard from "../pages/dashboard/UserDashboard";
 import AdminDashboard from "../pages/dashboard/AdminDashboard";
 import SuperAdminDashboard from "../pages/dashboard/SuperAdminDashboard";
-import PendingUsers from "../slots/PendingUsers";
 import CartPage from "../pages/CartPage";
 import ProductDetailsPage from "../pages/ProductsDetailsPage";
 import ProductUpdateForm from "../slots/ProductUpdateForm";
@@ -15,6 +14,7 @@ import SingleProductView from "../slots/SingleProductView";
 import SearchResult from "../slots/SearchResult";
 import CategoryPage from "../pages/CategoryPage";
 import SearchResultPage from "../slots/SearchResultPage";
+import AllOffers from "../pages/AllOffers";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: "/search-result-page-sort",
         element: <SearchResultPage></SearchResultPage>,
+      },
+      {
+        path: "/offers",
+        element: <AllOffers></AllOffers>,
       },
     ],
   },
