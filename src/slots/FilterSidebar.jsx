@@ -7,6 +7,9 @@ function FilterSidebar({
   const [selectedCategory, setSelectedCategory] = useState("");
   const [priceRange, setPriceRange] = useState([100, 1500]); // min, max
 
+  // Build query string based on selection
+  const queryString = `?name=${selectedCategory}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}`;
+
   return (
     <div className="col-span-1 bg-gray-100 p-4 rounded-lg h-[500px] overflow-y-auto">
       <h2 className="text-lg font-bold mb-4">Categories</h2>
@@ -19,7 +22,9 @@ function FilterSidebar({
                 ? "bg-blue-100 font-semibold"
                 : "bg-white"
             }`}
-            onClick={() => setSelectedCategory(cat)}
+            onClick={
+              () => setSelectedCategory(selectedCategory === cat ? "" : cat) // toggle
+            }
           >
             {cat.charAt(0).toUpperCase() + cat.slice(1)}
           </li>
@@ -49,7 +54,7 @@ function FilterSidebar({
 
       {/* Apply Filter Button */}
       <Link
-        to={`/search-result-page-sort?category=${selectedCategory}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}`}
+        to={`/search-result-page-sort${queryString}`}
         className="block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-center font-semibold"
       >
         Apply Filter

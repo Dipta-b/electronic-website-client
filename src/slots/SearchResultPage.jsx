@@ -3,20 +3,19 @@ import { useState, useEffect } from "react";
 
 function SearchResultPage() {
   const [searchParams] = useSearchParams();
-  const category = searchParams.get("category") || ""; // <-- explicit category
+  const name = searchParams.get("name") || ""; // matches backend 'name'
   const minPrice = Number(searchParams.get("minPrice") || 0);
   const maxPrice = Number(searchParams.get("maxPrice") || 1000000);
+
   const [products, setProducts] = useState([]);
-  console.log("prodcts", products);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        // Send category instead of name
         const res = await fetch(
-          `http://localhost:5000/search?category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
+          `http://localhost:5000/search?name=${name}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
         );
         if (!res.ok) throw new Error("Failed to fetch products");
         const data = await res.json();
@@ -29,7 +28,7 @@ function SearchResultPage() {
       }
     };
     fetchProducts();
-  }, [category, minPrice, maxPrice]);
+  }, [name, minPrice, maxPrice]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
