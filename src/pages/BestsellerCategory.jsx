@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "./shared/CartContext";
 import { FaCartPlus } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 function BestsellerCategory() {
   const categories = ["mobile", "laptop", "electronics", "accessories"];
@@ -10,6 +11,28 @@ function BestsellerCategory() {
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
   console.log(products);
+
+  const container = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { y: 80, opacity: 0 },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
   // Fetch products by category
   useEffect(() => {
     const fetchProducts = async () => {
@@ -64,7 +87,12 @@ function BestsellerCategory() {
 
       {/* Product Grid */}
       {/* Product Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 min-h-[400px]">
+      <motion.div
+        className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 min-h-[400px]"
+        variants={container}
+        initial="hidden"
+        animate="show"
+      >
         {loading ? (
           Array(4)
             .fill(0)
@@ -79,8 +107,10 @@ function BestsellerCategory() {
             (
               p, // show only 6 here
             ) => (
-              <div
+              <motion.div
                 key={p._id}
+                variants={item}
+                whileHover={{ y: -6 }}
                 className="w-full md:w-[55%] border border-gray-300 rounded-lg relative overflow-hidden"
               >
                 <img alt="product/image" src={p.image} className="w-full" />
@@ -103,7 +133,7 @@ function BestsellerCategory() {
                     </button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ),
           )
         ) : (
@@ -111,7 +141,7 @@ function BestsellerCategory() {
             No products in {selected}
           </p>
         )}
-      </div>
+      </motion.div>
 
       {/* View All Button */}
       <div className="flex justify-center mt-6">

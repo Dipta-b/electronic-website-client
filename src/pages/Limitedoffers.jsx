@@ -3,6 +3,27 @@ import { motion } from "framer-motion";
 import { FaShoppingCart, FaBolt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 80, opacity: 0 },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
 function LimitedOffers() {
   const [products, setProducts] = useState([]);
   const [timeNow, setTimeNow] = useState(new Date());
@@ -19,6 +40,7 @@ function LimitedOffers() {
     };
 
     fetchOffers();
+
     const interval = setInterval(() => setTimeNow(new Date()), 1000);
     return () => clearInterval(interval);
   }, []);
@@ -50,22 +72,26 @@ function LimitedOffers() {
         Offers
       </h1>
 
-      <div className="space-y-6">
-        {products.slice(0, 4).map((p, i) => (
+      <motion.div
+        className="space-y-6"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+      >
+        {products.slice(0, 4).map((p) => (
           <motion.div
             key={p._id}
-            layout
-            initial={{ opacity: 0, x: -60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
+            variants={item}
+            whileHover={{ y: -6, scale: 1.01 }}
             className="flex items-center rounded-xl bg-gray-100 dark:bg-slate-800 overflow-hidden hover:shadow-xl transition"
           >
             {/* Image */}
-            <div className="relative flex-shrink-0">
+            <div className="relative flex-shrink-0 overflow-hidden">
               <img
                 src={p.image || "/placeholder.jpg"}
                 alt={p.name}
-                className="w-40 h-40 object-cover"
+                className="w-40 h-40 object-cover transition-transform duration-300 hover:scale-110"
               />
 
               <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
@@ -111,7 +137,7 @@ function LimitedOffers() {
             </div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {products.length > 4 && (
         <div className="text-center mt-8">

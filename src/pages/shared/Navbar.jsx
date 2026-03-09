@@ -9,6 +9,7 @@ import {
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthContext";
 import { HiSearch } from "react-icons/hi";
+import logo from "../../assets/logo.avif";
 
 function Navbar() {
   const { user, setUser } = useContext(AuthContext);
@@ -50,7 +51,7 @@ function Navbar() {
         <div className="flex items-center gap-6">
           {/* Logo */}
           <NavLink to="/" className="flex items-center gap-2">
-            <img src="/favicon.svg" className="h-7" alt="Logo" />
+            <img src={logo} className="h-7" alt="Logo" />
             <span className="text-xl font-semibold dark:text-white">
               Woodmarts
             </span>

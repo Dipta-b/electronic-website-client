@@ -2,13 +2,37 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useCart } from "./shared/CartContext";
 import { FaCartPlus } from "react-icons/fa6";
+import { motion } from "framer-motion";
+
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 80, opacity: 0 },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
 
 function CategoryPage() {
-  const { categoryName } = useParams(); // get category from URL
+  const { categoryName } = useParams();
   const categories = ["mobile", "laptop", "electronics", "accessories"];
+
   const [selected, setSelected] = useState(categoryName || "mobile");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -28,6 +52,7 @@ function CategoryPage() {
         setLoading(false);
       }
     };
+
     fetchProducts();
   }, [selected]);
 
@@ -41,6 +66,7 @@ function CategoryPage() {
           </span>{" "}
           Category
         </h1>
+
         <div className="flex gap-2 flex-wrap">
           {categories.map((cat) => (
             <button
@@ -59,7 +85,13 @@ function CategoryPage() {
       </div>
 
       {/* Product Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 min-h-[400px]">
+      <motion.div
+        key={selected}
+        className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 min-h-[400px]"
+        variants={container}
+        initial="hidden"
+        animate="show"
+      >
         {loading ? (
           Array(4)
             .fill(0)
@@ -71,35 +103,41 @@ function CategoryPage() {
             ))
         ) : products.length > 0 ? (
           products.map((p) => (
-            <div
+            <motion.div
               key={p._id}
-              className="w-full md:w-[55%] border border-gray-300 rounded-lg relative overflow-hidden"
+              variants={item}
+              whileHover={{ y: -6, scale: 1.02 }}
+              className="w-full border border-gray-300 rounded-lg relative overflow-hidden transition-shadow hover:shadow-lg"
             >
               {/* Product Image */}
-              <img alt="product/image" src={p.image} className="w-full" />
+              <img
+                alt="product"
+                src={p.image}
+                className="w-full transition-transform duration-300 hover:scale-105"
+              />
 
               {/* Product Details */}
               <div className="mt-2 p-4">
-                <span className="text-gray-400 dark:text-slate-400 text-[0.9rem]">
+                <span className="text-gray-400 text-[0.9rem]">
                   {p.category.toUpperCase()}
                 </span>
-                <h3 className="dark:text-[#abc2d3] font-semibold mt-2">
-                  {p.name}
-                </h3>
+
+                <h3 className="font-semibold mt-2">{p.name}</h3>
 
                 <div className="flex justify-between items-center mt-2 border-t border-gray-200 pt-2">
-                  <p className="text-[1.1rem] font-semibold mt-1 text-[#0FABCA]">
+                  <p className="text-[1.1rem] font-semibold text-[#0FABCA]">
                     ${Number(p.price || 0).toFixed(2)}
                   </p>
+
                   <button
                     onClick={() => addToCart(p, 1)}
-                    className="text-black px-4 py-2 rounded "
+                    className="text-black px-4 py-2 rounded"
                   >
                     <FaCartPlus />
                   </button>
                 </div>
 
-                {/* View Details Link */}
+                {/* View Details */}
                 <Link
                   to={`/product-details/${p._id}`}
                   className="inline-block mt-3 text-sm text-blue-500 hover:underline"
@@ -107,14 +145,14 @@ function CategoryPage() {
                   View Details
                 </Link>
               </div>
-            </div>
+            </motion.div>
           ))
         ) : (
           <p className="text-center col-span-full mt-6">
             No products in {selected}
           </p>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }
