@@ -1,93 +1,127 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "../../auth/AuthContext";
 
 const CartContext = createContext();
-
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-    const { user } = useContext(AuthContext); // ✅ SAFE HERE
+    const { user } = useContext(AuthContext);
 
     const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    // Load cart when user logs in
+    const hasLoaded = useRef(false); // 🔥 prevents overwrite bug
+
+    // ✅ LOAD CART FROM BACKEND
     useEffect(() => {
-        if (!user) return;
+        if (!user) {
+            setCartItems([]);
+            setLoading(false);
+            return;
+        }
 
         const fetchCart = async () => {
             try {
-                const res = await fetch("https://electronic-website-server.vercel.app/cart", {
-                    credentials: "include",
-                });
+                setLoading(true);
+
+                const res = await fetch(
+                    "https://electronic-website-server.vercel.app/cart",
+                    {
+                        credentials: "include",
+                    }
+                );
+
                 const data = await res.json();
-                
-                let parsed = [];
-                if (Array.isArray(data)) parsed = data;
-                else if (data.items) parsed = data.items;
-                else if (data.cart) parsed = data.cart;
-                else if (data.products) parsed = data.products;
-                else if (data.cartItems) parsed = data.cartItems;
-                else {
-                    const arrVal = Object.values(data).find(Array.isArray);
-                    if (arrVal) parsed = arrVal;
-                }
+
+                const parsed = Array.isArray(data)
+                    ? data
+                    : data.items || [];
+
                 setCartItems(parsed);
+                hasLoaded.current = true; // ✅ mark loaded
             } catch (err) {
-                console.error(err);
+                console.error("Cart load error:", err);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchCart();
     }, [user]);
 
-    const syncCart = async (updatedItems) => {
-        setCartItems(updatedItems);
+    // ✅ SYNC CART TO BACKEND (SAFE)
+    useEffect(() => {
+        if (!user || !hasLoaded.current) return; // 🔥 prevent overwrite
+
+        const syncCart = async () => {
+            try {
+                await fetch(
+                    "https://electronic-website-server.vercel.app/cart",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        credentials: "include",
+                        body: JSON.stringify({ items: cartItems }),
+                    }
+                );
+            } catch (err) {
+                console.error("Cart sync error:", err);
+            }
+        };
+
+        syncCart();
+    }, [cartItems, user]);
+
+    // ✅ ADD TO CART
+    const addToCart = (product, qty = 1, isUpdate = false) => {
+        setCartItems((prev) => {
+            const safeItems = Array.isArray(prev) ? prev : [];
+            let updated = [...safeItems];
+
+            const index = updated.findIndex((i) => i._id === product._id);
+
+            if (index > -1) {
+                if (isUpdate) {
+                    updated[index].quantity += qty;
+                    if (updated[index].quantity <= 0) {
+                        updated.splice(index, 1);
+                    }
+                } else {
+                    window.alert("Already added! Please check your cart.");
+                    return prev;
+                }
+            } else {
+                updated.push({ ...product, quantity: qty });
+                if (!isUpdate) window.alert("Item successfully added to cart!");
+            }
+
+            return updated;
+        });
+    };
+
+    // ✅ REMOVE
+    const removeFromCart = (id) => {
+        setCartItems((prev) => prev.filter((i) => i._id !== id));
+    };
+
+    // ✅ CLEAR
+    const clearCart = async () => {
+        setCartItems([]);
 
         if (!user) return;
 
         await fetch("https://electronic-website-server.vercel.app/cart", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            method: "DELETE",
             credentials: "include",
-            body: JSON.stringify({ items: updatedItems }),
         });
     };
 
-    const addToCart = (product, qty = 1, isUpdate = false) => {
-        const safeItems = Array.isArray(cartItems) ? cartItems : [];
-        let updated = [...safeItems];
-        const index = updated.findIndex(i => i._id === product._id);
-
-        if (index > -1) {
-            if (isUpdate) {
-                updated[index].quantity += qty;
-                if (updated[index].quantity <= 0) {
-                    updated.splice(index, 1);
-                }
-            } else {
-                window.alert("Already added! Please check your cart.");
-                return; // Prevent duplicate addition
-            }
-        } else {
-            updated.push({ ...product, quantity: qty });
-            if (!isUpdate) window.alert("Item successfully added to cart!");
-        }
-
-        syncCart(updated);
-    };
-
-    const removeFromCart = (id) => {
-        const safeItems = Array.isArray(cartItems) ? cartItems : [];
-        const updated = safeItems.filter(i => i._id !== id);
-        syncCart(updated);
-    };
-
-    const clearCart = () => syncCart([]);
-
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider
+            value={{ cartItems, addToCart, removeFromCart, clearCart, loading }}
+        >
             {children}
         </CartContext.Provider>
     );

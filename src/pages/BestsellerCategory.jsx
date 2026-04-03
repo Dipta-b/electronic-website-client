@@ -58,7 +58,7 @@ function BestsellerCategory() {
           </h2>
           <p className="text-slate-500 mt-2 text-sm md:text-base">Explore our top rated electronics.</p>
         </div>
-        
+
         <div className="flex gap-3 flex-wrap bg-white dark:bg-slate-800 p-1.5 rounded-full premium-shadow border border-slate-100 dark:border-slate-700">
           {categories.map((cat) => (
             <button
@@ -66,11 +66,10 @@ function BestsellerCategory() {
               key={cat}
               onClick={() => setSelected(cat)}
               className={`px-5 py-2 rounded-full font-semibold text-sm transition-all duration-300 capitalize
-                  ${
-                    selected === cat
-                      ? "bg-linear-to-r from-cyan-500 to-blue-500 text-white shadow-[0_4px_12px_rgba(14,165,233,0.3)]"
-                      : "bg-transparent text-slate-600 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50"
-                  }`}
+                  ${selected === cat
+                  ? "bg-linear-to-r from-cyan-500 to-blue-500 text-white shadow-[0_4px_12px_rgba(14,165,233,0.3)]"
+                  : "bg-transparent text-slate-600 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50"
+                }`}
             >
               {cat}
             </button>
@@ -102,10 +101,10 @@ function BestsellerCategory() {
                 className="hover-lift bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 rounded-3xl relative overflow-hidden group flex flex-col premium-shadow"
               >
                 <div className="w-full h-[260px] bg-[#f8fafc] dark:bg-slate-900/50 overflow-hidden relative img-zoom-container flex items-center justify-center p-8">
-                  <img 
-                    alt={p.name} 
-                    src={p.image} 
-                    className="max-w-full max-h-full object-contain mix-blend-multiply dark:mix-blend-normal" 
+                  <img
+                    alt={p.name}
+                    src={p.image}
+                    className="max-w-full max-h-full object-contain mix-blend-multiply dark:mix-blend-normal"
                   />
                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md dark:bg-slate-800/90 px-3 py-1 rounded-full text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest shadow-sm">
                     {p.category}
@@ -118,7 +117,7 @@ function BestsellerCategory() {
                       {p.name}
                     </h3>
                   </div>
-                  
+
                   <div className="flex justify-between items-end mt-5 pt-5 border-t border-slate-100 dark:border-slate-700/60">
                     <div>
                       <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Price</p>
@@ -126,7 +125,7 @@ function BestsellerCategory() {
                         ${Number(p.price || 0).toFixed(2)}
                       </p>
                     </div>
-                    
+
                     <motion.button
                       whileHover={{ scale: 1.08 }}
                       whileTap={{ scale: 0.95 }}
@@ -148,14 +147,14 @@ function BestsellerCategory() {
       </motion.div>
 
       {/* View All Button */}
-      <motion.div variants={item} className="flex justify-center mt-12">
+      <div className="flex justify-center mt-12">
         <Link
           to={`/category/${selected}`}
-          className="px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold rounded-full premium-shadow hover:-translate-y-1 transition-all duration-300 hover:bg-cyan-600 dark:hover:bg-cyan-400 dark:hover:text-slate-900"
+          className="inline-block px-6 py-2 rounded-full bg-slate-900 dark:bg-white hover:bg-transparent dark:hover:bg-transparent text-white dark:text-slate-900 border-2 border-slate-900 dark:border-white font-bold transition-all transform hover:-translate-y-1 shadow-lg"
         >
           View All {selected}s
         </Link>
-      </motion.div>
+      </div>
     </div>
   );
 }
