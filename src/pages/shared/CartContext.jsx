@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../auth/AuthContext";
 
 const CartContext = createContext();
@@ -6,14 +6,12 @@ export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
     const { user, loading: userLoading } = useContext(AuthContext);
-
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
-    const hasLoaded = useRef(false); // prevent overwriting before initial load
 
-    // ✅ Load cart after user is authenticated
+    // 🔹 Load cart from backend every time user changes or refreshes
     useEffect(() => {
-        if (userLoading) return; // wait until auth check is complete
+        if (userLoading) return; // wait until auth check is done
         if (!user) {
             setCartItems([]);
             setLoading(false);
@@ -23,18 +21,14 @@ export const CartProvider = ({ children }) => {
         const fetchCart = async () => {
             try {
                 setLoading(true);
-
-                const res = await fetch(
-                    "https://electronic-website-server.vercel.app/cart",
-                    { credentials: "include" }
-                );
-
+                const res = await fetch("https://electronic-website-server.vercel.app/cart", {
+                    credentials: "include", // send cookie
+                });
                 const data = await res.json();
                 const parsed = Array.isArray(data) ? data : data.items || [];
-                setCartItems(parsed);
-                hasLoaded.current = true; // mark initial load complete
+                setCartItems(parsed); // always reflect DB
             } catch (err) {
-                console.error("Cart load error:", err);
+                console.error("Cart fetch error:", err);
             } finally {
                 setLoading(false);
             }
@@ -43,30 +37,24 @@ export const CartProvider = ({ children }) => {
         fetchCart();
     }, [user, userLoading]);
 
-    // ✅ Sync cart to backend safely
+    // 🔹 Sync cart to backend when it changes
     useEffect(() => {
-        if (!user || !hasLoaded.current) return;
-
+        if (!user) return;
         const syncCart = async () => {
             try {
-                await fetch(
-                    "https://electronic-website-server.vercel.app/cart",
-                    {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        credentials: "include",
-                        body: JSON.stringify({ items: cartItems }),
-                    }
-                );
+                await fetch("https://electronic-website-server.vercel.app/cart", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({ items: cartItems }),
+                });
             } catch (err) {
                 console.error("Cart sync error:", err);
             }
         };
-
         syncCart();
     }, [cartItems, user]);
 
-    // ✅ Add to cart
     const addToCart = (product, qty = 1, isUpdate = false) => {
         setCartItems((prev) => {
             const safeItems = Array.isArray(prev) ? prev : [];
@@ -83,22 +71,17 @@ export const CartProvider = ({ children }) => {
                 }
             } else {
                 updated.push({ ...product, quantity: qty });
-                if (!isUpdate) window.alert("Item successfully added!");
+                if (!isUpdate) window.alert("Item added to cart!");
             }
             return updated;
         });
     };
 
-    // ✅ Remove from cart
-    const removeFromCart = (id) => {
-        setCartItems((prev) => prev.filter((i) => i._id !== id));
-    };
+    const removeFromCart = (id) => setCartItems((prev) => prev.filter((i) => i._id !== id));
 
-    // ✅ Clear cart
     const clearCart = async () => {
         setCartItems([]);
         if (!user) return;
-
         try {
             await fetch("https://electronic-website-server.vercel.app/cart", {
                 method: "DELETE",
@@ -110,9 +93,7 @@ export const CartProvider = ({ children }) => {
     };
 
     return (
-        <CartContext.Provider
-            value={{ cartItems, addToCart, removeFromCart, clearCart, loading }}
-        >
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, loading }}>
             {children}
         </CartContext.Provider>
     );
