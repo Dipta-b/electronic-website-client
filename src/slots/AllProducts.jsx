@@ -18,12 +18,13 @@ const AllProducts = () => {
   useEffect(() => {
     fetch("https://electronic-website-server.vercel.app/products")
       .then((res) => res.json())
-      .then((products) => setData(products));
+      .then((products) => setData(Array.isArray(products) ? products : products.products || []));
   }, []);
 
   // SEARCH
   const filteredData = useMemo(() => {
-    return data.filter((item) =>
+    const rawData = Array.isArray(data) ? data : [];
+    return rawData.filter((item) =>
       Object.values(item).some((value) =>
         value?.toString().toLowerCase().includes(search.toLowerCase()),
       ),

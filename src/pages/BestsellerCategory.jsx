@@ -36,7 +36,7 @@ function BestsellerCategory() {
         const res = await fetch(`https://electronic-website-server.vercel.app/products/category/${selected}`);
         if (!res.ok) throw new Error("Failed to fetch products");
         const data = await res.json();
-        setProducts(data);
+        setProducts(Array.isArray(data) ? data : data.products || []);
       } catch (err) {
         console.error(err);
         setProducts([]);

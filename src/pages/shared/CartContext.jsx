@@ -20,7 +20,7 @@ export const CartProvider = ({ children }) => {
                     credentials: "include",
                 });
                 const data = await res.json();
-                setCartItems(data);
+                setCartItems(Array.isArray(data) ? data : data.items || []);
             } catch (err) {
                 console.error(err);
             }
