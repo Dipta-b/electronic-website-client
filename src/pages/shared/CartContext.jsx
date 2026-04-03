@@ -16,7 +16,7 @@ export const CartProvider = ({ children }) => {
 
         const fetchCart = async () => {
             try {
-                const res = await fetch("http://localhost:5000/cart", {
+                const res = await fetch("https://electronic-website-server.vercel.app/cart", {
                     credentials: "include",
                 });
                 const data = await res.json();
@@ -34,7 +34,7 @@ export const CartProvider = ({ children }) => {
 
         if (!user) return;
 
-        await fetch("http://localhost:5000/cart", {
+        await fetch("https://electronic-website-server.vercel.app/cart", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

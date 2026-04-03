@@ -17,7 +17,7 @@ const SearchInput = ({ searchValue, setSearchValue }) => {
         params.append("name", searchValue);
 
         const res = await fetch(
-          `http://localhost:5000/search?${params.toString()}`,
+          `https://electronic-website-server.vercel.app/search?${params.toString()}`,
           {
             credentials: "include",
           },

@@ -1,10 +1,115 @@
+@import "tailwindcss";
+@import "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Flowbite styles */
 @import "flowbite";
 
-body {
-  font-family: "Inter", sans-serif;
+@layer base {
+  body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    @apply bg-[#F4F7FB] text-slate-900;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+  
+  /* Modern Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 20px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8;
+  }
+  
+  .dark body {
+    @apply bg-[#0B1121] text-slate-100;
+  }
+  
+  .dark ::-webkit-scrollbar-thumb {
+    background-color: #334155;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  }
+  
+  .dark .glass {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* Sophisticated Multi-Layer Shadows */
+  .premium-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02),
+                0 12px 20px -4px rgba(0, 0, 0, 0.04),
+                0 20px 40px -10px rgba(0, 0, 0, 0.06);
+  }
+  
+  .dark .premium-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2),
+                0 12px 20px -4px rgba(0, 0, 0, 0.4),
+                0 20px 40px -10px rgba(0, 0, 0, 0.6);
+  }
+  
+  /* Inner shadow for inputs */
+  .premium-inner-shadow {
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+  }
+
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(135deg, #0284c7, #2563eb);
+  }
+  
+  .dark .text-gradient {
+    background-image: linear-gradient(135deg, #38bdf8, #60a5fa);
+  }
+  
+  /* Smooth transform variables */
+  .hover-lift {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .dark .hover-lift:hover {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Image zoom container */
+  .img-zoom-container {
+    overflow: hidden;
+  }
+  .img-zoom-container img {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .img-zoom-container:hover img {
+    transform: scale(1.08);
+  }
 }

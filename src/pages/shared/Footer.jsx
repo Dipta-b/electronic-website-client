@@ -7,7 +7,7 @@ import { BsInstagram, BsLinkedin, BsTwitter } from "react-icons/bs";
 
 const Footer = () => {
     return (
-        <footer className="bg-white dark:bg-slate-900 shadow-md rounded-xl w-full p-6 md:p-9">
+        <footer className="bg-white dark:bg-[#0B1121] premium-shadow rounded-[32px] w-[96%] mx-auto my-10 p-10 md:p-14 border border-slate-100 dark:border-slate-800/60">
             <div className="flex justify-between gap-[30px] flex-wrap w-full">
 
                 <div className="">
@@ -53,17 +53,20 @@ const Footer = () => {
                 </div>
 
                 <div>
-                    <h3 className="text-[1.2rem] dark:text-[#abc2d3] font-semibold text-[#424242] mb-2">Join a
-                        Newsletter</h3>
+                    <h3 className="text-[1.2rem] dark:text-[#abc2d3] font-semibold text-[#424242] mb-4">Join our Newsletter</h3>
                     <div className="flex gap-[2px] flex-col text-[#424242] relative">
-                        <label className="text-[0.9rem] dark:text-slate-400">Your Email</label>
-                        <input type="email"
-                            className="py-3 px-4 dark:bg-slate-900 dark:border-slate-700 dark:placeholder:text-slate-500 dark:text-[#abc2d3] w-full pr-[90px] rounded-md border border-primary outline-none"
-                            placeholder="Email address" />
+                        <label className="text-sm dark:text-slate-400 font-medium mb-1">Stay updated with the latest tech:</label>
+                        <div className="relative flex items-center">
+                            <input type="email"
+                                className="py-3 px-5 dark:bg-slate-800/80 dark:border-slate-700 dark:placeholder:text-slate-500 dark:text-[#abc2d3] w-full rounded-full border border-slate-200 outline-none focus:border-[#38bdf8] focus:ring-[3px] focus:ring-[#38bdf8]/15 premium-inner-shadow transition-all duration-300"
+                                placeholder="Enter your email address" />
 
-                        <button
-                            className="px-4 h-[67%] rounded-r-md bg-[#3B9DF8] text-white absolute top-[24px] right-0">Submit
-                        </button>
+                            <button
+                                className="absolute right-1.5 h-[80%] px-5 rounded-full bg-linear-to-r from-[#0ea5e9] to-[#2563eb] text-white font-semibold hover:shadow-[0_4px_12px_rgba(14,165,233,0.3)] hover:scale-105 transition-all duration-300"
+                            >
+                                Submit
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@ const AllProducts = () => {
 
   // fetch products
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("https://electronic-website-server.vercel.app/products")
       .then((res) => res.json())
       .then((products) => setData(products));
   }, []);
@@ -66,7 +66,7 @@ const AllProducts = () => {
 
     if (!result.isConfirmed) return;
 
-    const res = await fetch(`http://localhost:5000/products/${id}`, {
+    const res = await fetch(`https://electronic-website-server.vercel.app/products/${id}`, {
       method: "DELETE",
       credentials: "include",
     });

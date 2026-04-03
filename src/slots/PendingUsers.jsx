@@ -11,7 +11,7 @@ const PendingUsers = () => {
   useEffect(() => {
     const fetchPendingUsers = async () => {
       try {
-        const res = await fetch("http://localhost:5000/users/pending", {
+        const res = await fetch("https://electronic-website-server.vercel.app/users/pending", {
           credentials: "include",
         });
         if (!res.ok) throw new Error("Failed to fetch pending users");
@@ -41,7 +41,7 @@ const PendingUsers = () => {
 const handleApproveToBecameAdmin = async(userId, userName) => {
 
   try {
-    const res = await fetch(`http://localhost:5000/users/approve/${userId}`,{
+    const res = await fetch(`https://electronic-website-server.vercel.app/users/approve/${userId}`,{
       method:'PATCH',
       credentials:'include',
     });
@@ -62,7 +62,7 @@ const handleApproveToBecameAdmin = async(userId, userName) => {
 //reject to be admin function
 const handleReject = async (id) => {
   try {
-    const res = await fetch(`http://localhost:5000/users/reject/${id}`, {
+    const res = await fetch(`https://electronic-website-server.vercel.app/users/reject/${id}`, {
       method: "DELETE",
       credentials: "include",
     });

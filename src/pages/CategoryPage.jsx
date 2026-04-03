@@ -40,7 +40,7 @@ function CategoryPage() {
       setLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:5000/products/category/${selected}`,
+          `https://electronic-website-server.vercel.app/products/category/${selected}`,
         );
         if (!res.ok) throw new Error("Failed to fetch products");
         const data = await res.json();

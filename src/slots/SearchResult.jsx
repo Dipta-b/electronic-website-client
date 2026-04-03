@@ -16,7 +16,7 @@ const SearchResult = () => {
           return;
         }
 
-        const res = await fetch(`http://localhost:5000/search?name=${query}`, {
+        const res = await fetch(`https://electronic-website-server.vercel.app/search?name=${query}`, {
           credentials: "include",
         });
         const data = await res.json();

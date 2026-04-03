@@ -21,7 +21,7 @@ const ProductDetailsPage = () => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/products/${id}`)
+        fetch(`https://electronic-website-server.vercel.app/products/${id}`)
             .then(res => res.json())
             .then(data => {
                 setProduct(data);
@@ -62,22 +62,21 @@ const ProductDetailsPage = () => {
                     </div>
 
                     {/* Main image */}
-                    <div className="flex-1 flex items-center justify-center bg-gray-100 dark:bg-slate-900 rounded-lg p-4">
+                    <div className="flex-1 flex items-center justify-center bg-white dark:bg-slate-900/50 rounded-3xl p-8 premium-shadow border border-slate-100 dark:border-slate-800/60 img-zoom-container">
                         <img
                             src={images[selectedImage]}
                             alt={`Main ${selectedImage + 1}`}
-                            className="object-contain max-h-[600px] w-full md:w-auto rounded-lg"
+                            className="object-contain max-h-[500px] w-full md:w-auto rounded-lg mix-blend-multiply dark:mix-blend-normal"
                         />
                     </div>
                 </div>
 
-                {/* Right side - Product details */}
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-7">
                     <div>
-                        <h1 className="text-[1.6rem] dark:text-[#abc2d3] md:text-[1.9rem] font-bold text-gray-800">{product.name}</h1>
-                        <div className="flex items-center gap-2 mt-2 md:mt-5">
-                            <span className="text-3xl dark:text-[#abc2d3] font-medium">${product.price}</span>
-                            {product.offerPrice && <span className="text-xl dark:text-slate-400 text-gray-500 line-through">${product.originalPrice}</span>}
+                        <h1 className="text-[2rem] dark:text-[#abc2d3] md:text-[2.5rem] font-black text-slate-800 tracking-tight leading-tight">{product.name}</h1>
+                        <div className="flex items-center gap-4 mt-4 bg-[#f8fafc] dark:bg-slate-800/40 p-4 rounded-2xl w-fit premium-inner-shadow">
+                            <span className="text-4xl text-cyan-600 dark:text-cyan-400 font-black tracking-tighter">${product.price}</span>
+                            {product.offerPrice && <span className="text-xl dark:text-slate-500 text-slate-400 line-through font-medium">${product.originalPrice}</span>}
                         </div>
                     </div>
 
@@ -123,24 +122,24 @@ const ProductDetailsPage = () => {
                         <Spec icon={<MdBatteryChargingFull />} label="Battery" value={product.battery} />
                     </div>
 
-                    <p className="text-[0.9rem] dark:text-slate-400 text-gray-600">{product.description}</p>
+                    <p className="text-[15px] dark:text-slate-400 text-slate-600 leading-relaxed max-w-[90%]">{product.description}</p>
 
                     {/* Action buttons */}
-                    <div className="flex flex-col md:flex-row gap-4">
+                    <div className="flex flex-col md:flex-row gap-4 mt-4">
+                        <button onClick={() => addToCart(product, 1)} className="flex-1 py-4 px-6 rounded-full bg-linear-to-r from-[#0ea5e9] to-[#2563eb] text-white font-bold hover:shadow-[0_4px_12px_rgba(14,165,233,0.3)] hover:-translate-y-1 transition-all duration-300">Add to Cart</button>
                         <button
                             onClick={() => setIsFavorite(!isFavorite)}
-                            className="flex-1 py-3 px-4 dark:border-slate-700 dark:text-[#abc2d3] dark:hover:bg-slate-900 rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-50"
+                            className="flex-[0.4] py-4 px-4 dark:border-slate-700 dark:text-[#abc2d3] dark:hover:bg-slate-800 rounded-full border-2 border-slate-200 text-slate-700 hover:bg-slate-50 hover:-translate-y-1 transition-all duration-300 font-bold"
                         >
                             <div className="flex items-center justify-center gap-2">
-                                {isFavorite ? <BsHeartFill className="w-5 h-5 text-red-500" /> : <BsHeart className="w-5 h-5" />}
-                                Add to Wishlist
+                                {isFavorite ? <BsHeartFill className="w-5 h-5 text-[#ef4444]" /> : <BsHeart className="w-5 h-5" />}
+                                Wishlist
                             </div>
                         </button>
-                        <button onClick={() => addToCart(product, 1)} className="flex-1 py-3 px-4 rounded-lg bg-[#0FABCA] text-white hover:bg-[#0FABCA]/90">Add to Cart</button>
                     </div>
 
                     {/* Delivery info */}
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between mt-2">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 border-t border-slate-100 dark:border-slate-800 pt-6">
                         <Info icon={<CiDeliveryTruck />} title="Free Delivery" sub="1-2 day" />
                         <Info icon={<IoStorefrontOutline />} title="In Stock" sub="Today" />
                         <Info icon={<GoVerified />} title="Guaranteed" sub="1 year" />
@@ -152,11 +151,13 @@ const ProductDetailsPage = () => {
 };
 
 const Spec = ({ icon, label, value }) => (
-    <div className="flex items-center gap-2 dark:bg-slate-900 bg-gray-50 p-3 rounded-lg">
-        {icon}
+    <div className="flex items-center gap-4 dark:bg-slate-800/80 bg-white border border-slate-100 dark:border-slate-700 p-4 rounded-2xl premium-shadow hover:-translate-y-1 transition-transform">
+        <div className="bg-[#f8fafc] dark:bg-slate-700/50 p-2.5 rounded-full text-[#0ea5e9]">
+            {icon}
+        </div>
         <div>
-            <p className="text-sm dark:text-[#abc2d3] text-gray-500">{label}</p>
-            <p className="font-medium text-gray-700 dark:text-slate-400 text-[0.9rem]">{value}</p>
+            <p className="text-[12px] uppercase tracking-wider font-semibold dark:text-slate-500 text-slate-400">{label}</p>
+            <p className="font-bold text-slate-700 dark:text-slate-200 text-[14px]">{value}</p>
         </div>
     </div>
 );

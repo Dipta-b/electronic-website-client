@@ -10,7 +10,7 @@ function AllOffers() {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const res = await fetch("http://localhost:5000/products/activeOffers");
+        const res = await fetch("https://electronic-website-server.vercel.app/products/activeOffers");
         const data = await res.json();
         setProducts(data);
       } catch (err) {
