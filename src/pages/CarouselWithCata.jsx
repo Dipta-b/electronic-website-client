@@ -7,22 +7,16 @@ import FilterSidebar from "../slots/FilterSidebar";
 const CarouselWithCata = () => {
   return (
     <div className="w-full">
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        {/* Left Column - Sidebar */}
-        <div className="hidden lg:block lg:col-span-1">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch mb-12">
+        {/* Left Column Stack - Sidebar & Features */}
+        <div className="hidden lg:flex flex-col w-[300px] shrink-0 gap-8 h-full">
           <FilterSidebar></FilterSidebar>
-        </div>
-
-        {/* Middle Column - Hero Carousel */}
-        <div className="col-span-1 lg:col-span-3 flex items-center justify-center w-full">
-          <div className="w-full">
-            <Carousel></Carousel>
-          </div>
-        </div>
-
-        {/* Right Column - Featured Deals */}
-        <div className="hidden lg:block lg:col-span-1">
           <AnimatedCard></AnimatedCard>
+        </div>
+
+        {/* Right Column - Expanding Hero Carousel */}
+        <div className="flex-1 w-full flex items-center justify-center">
+            <Carousel></Carousel>
         </div>
       </div>
     </div>

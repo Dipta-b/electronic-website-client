@@ -45,23 +45,24 @@ export const CartProvider = ({ children }) => {
     };
 
     const addToCart = (product, qty = 1) => {
-        let updated = [...cartItems];
+        const safeItems = Array.isArray(cartItems) ? cartItems : [];
+        let updated = [...safeItems];
         const index = updated.findIndex(i => i._id === product._id);
 
         if (index > -1) {
-            updated[index].quantity += qty;
-            if (updated[index].quantity <= 0) {
-                updated.splice(index, 1);
-            }
+            window.alert("Already added! Please check your cart.");
+            return; // Prevent duplicate addition
         } else {
             updated.push({ ...product, quantity: qty });
+            window.alert("Item successfully added to cart!");
         }
 
         syncCart(updated);
     };
 
     const removeFromCart = (id) => {
-        const updated = cartItems.filter(i => i._id !== id);
+        const safeItems = Array.isArray(cartItems) ? cartItems : [];
+        const updated = safeItems.filter(i => i._id !== id);
         syncCart(updated);
     };
 

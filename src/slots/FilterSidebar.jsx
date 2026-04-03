@@ -11,7 +11,7 @@ function FilterSidebar({
   const queryString = `?name=${selectedCategory}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}`;
 
   return (
-    <div className="col-span-1 bg-white dark:bg-slate-800/80 p-6 rounded-3xl premium-shadow border border-slate-100 dark:border-slate-700/60 h-[500px] overflow-y-auto sticky top-32">
+    <div className="col-span-1 bg-white dark:bg-slate-800/80 p-6 rounded-3xl premium-shadow border border-slate-100 dark:border-slate-700/60 flex-1">
       <h2 className="text-xl font-black text-slate-800 dark:text-white mb-6 tracking-tight">Categories</h2>
       <ul className="space-y-3 mb-8">
         {categories.map((cat) => (
