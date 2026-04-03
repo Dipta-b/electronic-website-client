@@ -31,21 +31,31 @@ const SearchResult = () => {
   }, [query]);
 
   return (
-    <div className="p-4">
+    <div className="max-w-7xl mx-auto px-4 pt-32 pb-16">
       {results.length === 0 ? (
-        <p>No products found.</p>
+        <div className="bg-white dark:bg-slate-800 p-10 rounded-3xl premium-shadow text-center">
+            <p className="text-slate-500 dark:text-slate-400 text-lg">No products found matching your search.</p>
+        </div>
       ) : (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {results.map((product) => (
-            <li key={product._id} className="border p-4 rounded-lg shadow-sm">
-              <h3 className="font-semibold">{product.name}</h3>
-              <p className="text-sm text-gray-500">{product.category}</p>
-              <p className="text-lg font-bold">${product.price}</p>
-              {product.available ? (
-                <span className="text-green-600">In Stock</span>
-              ) : (
-                <span className="text-red-600">Out of Stock</span>
-              )}
+            <li key={product._id} className="hover-lift bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 rounded-3xl relative overflow-hidden group flex flex-col premium-shadow">
+              <div className="p-6 flex flex-col justify-between h-full">
+                <div>
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md dark:bg-slate-800/90 px-3 py-1 rounded-full text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest shadow-sm">
+                        {product.category}
+                    </div>
+                    <h3 className="text-[17px] mt-8 font-bold text-slate-800 dark:text-slate-100 line-clamp-2 leading-relaxed group-hover:text-[#0ea5e9] transition-colors">{product.name}</h3>
+                </div>
+                <div className="mt-5 pt-5 border-t border-slate-100 dark:border-slate-700/60 flex justify-between items-end">
+                    <p className="text-[22px] font-black tracking-tight text-cyan-600 dark:text-cyan-400">${product.price}</p>
+                    {product.available ? (
+                      <span className="text-green-600 font-bold bg-green-50 px-2.5 py-1 rounded-md text-xs">In Stock</span>
+                    ) : (
+                      <span className="text-red-600 font-bold bg-red-50 px-2.5 py-1 rounded-md text-xs">Out of Stock</span>
+                    )}
+                </div>
+              </div>
             </li>
           ))}
         </ul>

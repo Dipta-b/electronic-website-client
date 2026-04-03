@@ -8,7 +8,7 @@ import { EffectFlip, Pagination, Navigation, Autoplay } from 'swiper/modules';
 
 function Carousel() {
     return (
-        <div className="w-full h-[500px] rounded-[32px] overflow-hidden premium-shadow mx-auto relative group"> {/* Set a fixed height for the carousel */}
+        <div className="w-full h-[500px] mt-2 mb-10 overflow-hidden relative group">
             <Swiper
                 effect={'flip'}
                 grabCursor={true}
