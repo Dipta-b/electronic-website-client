@@ -22,7 +22,7 @@ export const CartProvider = ({ children }) => {
             try {
                 setLoading(true);
                 const res = await fetch("https://electronic-website-server.vercel.app/cart", {
-                    credentials: "include", // send cookie
+                    credentials: "include",
                 });
                 const data = await res.json();
                 const parsed = Array.isArray(data) ? data : data.items || [];

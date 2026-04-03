@@ -3,6 +3,7 @@ import { useCart } from "./shared/CartContext";
 
 const CartPage = () => {
     const { cartItems, addToCart, removeFromCart, clearCart, loading } = useCart();
+    console.log("cartItems", cartItems);
     const [coupon, setCoupon] = useState("");
     const [shippingFee, setShippingFee] = useState(0);
 
@@ -12,6 +13,7 @@ const CartPage = () => {
     const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
 
     const subtotal = safeCartItems.reduce((acc, item) => acc + getProductPrice(item) * (item.quantity || 1), 0);
+
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-16">
