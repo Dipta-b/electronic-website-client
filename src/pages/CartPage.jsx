@@ -14,8 +14,11 @@ const CartPage = () => {
         return Number(item.price) || 0;
     };
 
+    // Ensure cartItems is an array to prevent crashes
+    const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
+
     // Calculate subtotal correctly
-    const subtotal = cartItems.reduce((acc, item) => {
+    const subtotal = safeCartItems.reduce((acc, item) => {
         const price = getProductPrice(item);
         const quantity = Number(item.quantity) || 1;
         return acc + price * quantity;
@@ -35,7 +38,7 @@ const CartPage = () => {
         <div className="max-w-7xl mx-auto px-4 py-16">
             <h1 className="text-3xl md:text-4xl font-black text-slate-800 dark:text-white mb-10 tracking-tight">Shopping Cart</h1>
 
-            {cartItems.length === 0 ? (
+            {safeCartItems.length === 0 ? (
                 <div className="bg-white dark:bg-slate-800 p-10 rounded-3xl premium-shadow text-center">
                     <p className="text-slate-500 dark:text-slate-400 text-lg">Your cart is currently empty.</p>
                 </div>
@@ -54,7 +57,7 @@ const CartPage = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {cartItems.map((item) => {
+                                {safeCartItems.map((item) => {
                                     const price = getProductPrice(item);
                                     const quantity = Number(item.quantity) || 1;
                                     const subtotalItem = price * quantity;
