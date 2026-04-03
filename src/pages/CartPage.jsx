@@ -96,14 +96,14 @@ const CartPage = () => {
                                             <td className="px-4 py-4">
                                                 <div className="flex items-center gap-3 bg-slate-100 dark:bg-slate-800/80 w-fit p-1.5 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm">
                                                     <button
-                                                        onClick={() => addToCart(item, -1)}
+                                                        onClick={() => addToCart(item, -1, true)}
                                                         className="w-8 h-8 rounded-full bg-white dark:bg-slate-700 font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
                                                     >
                                                         -
                                                     </button>
                                                     <span className="w-6 text-center font-bold text-slate-800 dark:text-white">{quantity}</span>
                                                     <button
-                                                        onClick={() => addToCart(item, 1)}
+                                                        onClick={() => addToCart(item, 1, true)}
                                                         className="w-8 h-8 rounded-full bg-white dark:bg-slate-700 font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
                                                     >
                                                         +

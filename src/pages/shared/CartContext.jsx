@@ -20,7 +20,18 @@ export const CartProvider = ({ children }) => {
                     credentials: "include",
                 });
                 const data = await res.json();
-                setCartItems(Array.isArray(data) ? data : data.items || []);
+                
+                let parsed = [];
+                if (Array.isArray(data)) parsed = data;
+                else if (data.items) parsed = data.items;
+                else if (data.cart) parsed = data.cart;
+                else if (data.products) parsed = data.products;
+                else if (data.cartItems) parsed = data.cartItems;
+                else {
+                    const arrVal = Object.values(data).find(Array.isArray);
+                    if (arrVal) parsed = arrVal;
+                }
+                setCartItems(parsed);
             } catch (err) {
                 console.error(err);
             }
@@ -44,17 +55,24 @@ export const CartProvider = ({ children }) => {
         });
     };
 
-    const addToCart = (product, qty = 1) => {
+    const addToCart = (product, qty = 1, isUpdate = false) => {
         const safeItems = Array.isArray(cartItems) ? cartItems : [];
         let updated = [...safeItems];
         const index = updated.findIndex(i => i._id === product._id);
 
         if (index > -1) {
-            window.alert("Already added! Please check your cart.");
-            return; // Prevent duplicate addition
+            if (isUpdate) {
+                updated[index].quantity += qty;
+                if (updated[index].quantity <= 0) {
+                    updated.splice(index, 1);
+                }
+            } else {
+                window.alert("Already added! Please check your cart.");
+                return; // Prevent duplicate addition
+            }
         } else {
             updated.push({ ...product, quantity: qty });
-            window.alert("Item successfully added to cart!");
+            if (!isUpdate) window.alert("Item successfully added to cart!");
         }
 
         syncCart(updated);
