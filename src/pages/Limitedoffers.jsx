@@ -132,16 +132,14 @@ function LimitedOffers() {
         ))}
       </motion.div>
 
-      {products.length > 4 && (
-        <div className="text-center mt-8">
-          <Link
-            to="/offers"
-            className="inline-block px-6 py-2 rounded-full bg-purple-500 hover:bg-purple-600 text-white font-medium transition"
-          >
-            View All Offers
-          </Link>
-        </div>
-      )}
+      <div className="text-center mt-8">
+        <Link
+          to="/offers"
+          className="inline-block px-6 py-2 rounded-full bg-slate-900 dark:bg-white hover:bg-transparent dark:hover:bg-transparent text-white dark:text-slate-900 border-2 border-slate-900 dark:border-white font-bold transition-all transform hover:-translate-y-1 shadow-lg"
+        >
+          View All Offers
+        </Link>
+      </div>
     </div>
   );
 }
