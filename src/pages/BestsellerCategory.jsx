@@ -80,18 +80,18 @@ function BestsellerCategory() {
 
       {/* Product Grid */}
       <motion.div
-        className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 min-h-[400px]"
+        className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 min-h-[400px]"
         variants={container}
         initial="hidden"
         animate="show"
       >
         {loading ? (
-          Array(4).fill(0).map((_, i) => (
+          Array(6).fill(0).map((_, i) => (
             <div key={i} className="bg-white dark:bg-slate-800 h-[380px] rounded-2xl animate-pulse premium-shadow border border-slate-100 dark:border-slate-700"></div>
           ))
         ) : products.length > 0 ? (
           <AnimatePresence>
-            {products.slice(0, 8).map((p) => (
+            {products.slice(0, 6).map((p) => (
               <motion.div
                 key={p._id}
                 variants={item}

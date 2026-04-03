@@ -43,7 +43,7 @@ function AllOffers() {
     <div className="max-w-6xl mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-8">All Limited Offers</h1>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((p, i) => (
           <motion.div
             key={p._id}
@@ -51,41 +51,48 @@ function AllOffers() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: i * 0.05 }}
-            className="flex flex-col rounded-xl bg-gray-100 dark:bg-slate-800 shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1"
+            whileHover={{ y: -6, scale: 1.01 }}
+            className="flex items-center rounded-2xl bg-white dark:bg-slate-800 overflow-hidden premium-shadow border border-slate-100 dark:border-slate-700/60"
           >
-            <div className="relative">
+            {/* Image */}
+            <div className="relative flex-shrink-0 w-32 h-full min-h-[140px] bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center p-3">
               <img
                 src={p.image || "/placeholder.jpg"}
                 alt={p.name}
-                className="w-full h-52 object-cover"
+                className="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal hover:scale-110 transition-transform duration-500"
               />
-              <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+              <span className="absolute top-2 left-2 bg-[#ef4444] text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">
                 {calculateDiscount(p.price, p.offerPrice)}% OFF
               </span>
             </div>
 
+            {/* Content */}
             <div className="p-4 flex flex-col flex-1 justify-between">
               <div>
-                <h3 className="text-gray-800 dark:text-[#d2e5f5] font-bold text-lg">
+                <h3 className="text-[15px] font-bold text-slate-800 dark:text-slate-100 line-clamp-1">
                   {p.name}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-[#abc2d3]/80 mt-1">
-                  Ends in: {calculateTimeLeft(p.offerEnd)}
+                <p className="text-[11px] font-semibold text-slate-500 mt-1 uppercase tracking-wider">
+                  Ends: <span className="text-[#0ea5e9]">{calculateTimeLeft(p.offerEnd)}</span>
                 </p>
-                <p className="text-green-500 font-medium text-sm mt-1">
-                  You save: ${calculateSavings(p.price, p.offerPrice)}
-                </p>
-                <p className="text-red-500 font-bold text-lg mt-2">
-                  ${p.offerPrice}{" "}
-                  <span className="line-through text-gray-400 text-sm ml-2">
-                    ${p.price}
+                <div className="mt-2 text-slate-800 dark:text-white">
+                  <span className="font-black text-lg text-cyan-600 dark:text-cyan-400">
+                    ${p.offerPrice && Number(p.offerPrice).toFixed(2)}
                   </span>
-                </p>
-                <Link to={`/product-details/${p._id}`}>
-                  <button className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full transition">
-                    <FaBolt />
-                  </button>
+                  <span className="line-through text-slate-400 text-xs ml-2 font-medium">
+                    ${p.price && Number(p.price).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Buttons */}
+              <div className="flex gap-2 mt-3">
+                <Link to={`/product-details/${p._id}`} className="flex-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-center py-2 rounded-xl text-slate-700 dark:text-slate-200 font-bold text-sm transition-colors">
+                  Details
                 </Link>
+                <button className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-4 rounded-xl hover:-translate-y-0.5 hover:shadow-lg transition-all flex items-center justify-center">
+                  <FaShoppingCart />
+                </button>
               </div>
             </div>
           </motion.div>

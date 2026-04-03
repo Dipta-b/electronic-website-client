@@ -44,7 +44,7 @@ function CategoryPage() {
         );
         if (!res.ok) throw new Error("Failed to fetch products");
         const data = await res.json();
-        setProducts(data);
+        setProducts(Array.isArray(data) ? data : data.products || []);
       } catch (err) {
         console.error(err);
         setProducts([]);
@@ -57,28 +57,28 @@ function CategoryPage() {
   }, [selected]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 py-24">
       {/* Header & Category Buttons */}
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
-        <h1 className="text-4xl font-bold">
-          <span className="text-2xl font-bold bg-gradient-to-r from-[#A66BB8] via-[#824694] to-[#5E2F6D] bg-clip-text text-transparent">
-            {selected.charAt(0).toUpperCase() + selected.slice(1)}
-          </span>{" "}
-          Category
-        </h1>
+      <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8 text-center md:text-left">
+        <div>
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white capitalize">
+            {selected} <span className="text-gradient">Collections</span>
+          </h1>
+          <p className="text-slate-500 mt-2">Explore all products in this specific category.</p>
+        </div>
 
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap justify-center bg-white dark:bg-slate-800 p-1.5 rounded-full premium-shadow border border-slate-100 dark:border-slate-700">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelected(cat)}
-              className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+              className={`px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-300 capitalize ${
                 selected === cat
-                  ? "bg-[#4732d1] text-white"
-                  : "bg-gray-200 text-black hover:bg-[#4732d1] hover:text-white"
+                  ? "bg-linear-to-r from-cyan-500 to-blue-500 text-white shadow-[0_4px_12px_rgba(14,165,233,0.3)]"
+                  : "bg-transparent text-slate-600 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50"
               }`}
             >
-              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              {cat}
             </button>
           ))}
         </div>
@@ -87,68 +87,76 @@ function CategoryPage() {
       {/* Product Grid */}
       <motion.div
         key={selected}
-        className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 min-h-[400px]"
+        className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 min-h-[400px]"
         variants={container}
         initial="hidden"
         animate="show"
       >
         {loading ? (
-          Array(4)
+          Array(8)
             .fill(0)
             .map((_, i) => (
               <div
                 key={i}
-                className="bg-gray-200 h-64 rounded animate-pulse"
+                className="bg-white dark:bg-slate-800 h-[380px] rounded-3xl animate-pulse premium-shadow border border-slate-100 dark:border-slate-700"
               ></div>
             ))
         ) : products.length > 0 ? (
           products.map((p) => (
-            <motion.div
-              key={p._id}
-              variants={item}
-              whileHover={{ y: -6, scale: 1.02 }}
-              className="w-full border border-gray-300 rounded-lg relative overflow-hidden transition-shadow hover:shadow-lg"
-            >
-              {/* Product Image */}
-              <img
-                alt="product"
-                src={p.image}
-                className="w-full transition-transform duration-300 hover:scale-105"
-              />
-
-              {/* Product Details */}
-              <div className="mt-2 p-4">
-                <span className="text-gray-400 text-[0.9rem]">
-                  {p.category.toUpperCase()}
-                </span>
-
-                <h3 className="font-semibold mt-2">{p.name}</h3>
-
-                <div className="flex justify-between items-center mt-2 border-t border-gray-200 pt-2">
-                  <p className="text-[1.1rem] font-semibold text-[#0FABCA]">
-                    ${Number(p.price || 0).toFixed(2)}
-                  </p>
-
-                  <button
-                    onClick={() => addToCart(p, 1)}
-                    className="text-black px-4 py-2 rounded"
-                  >
-                    <FaCartPlus />
-                  </button>
+              <motion.div
+                key={p._id}
+                variants={item}
+                layout
+                className="hover-lift bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 rounded-3xl relative overflow-hidden group flex flex-col premium-shadow"
+              >
+                <div className="w-full h-[260px] bg-[#f8fafc] dark:bg-slate-900/50 overflow-hidden relative flex items-center justify-center p-8">
+                  <img
+                    alt={p.name}
+                    src={p.image}
+                    className="max-w-full max-h-full object-contain mix-blend-multiply dark:mix-blend-normal transform transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md dark:bg-slate-800/90 px-3 py-1 rounded-full text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest shadow-sm">
+                    {p.category}
+                  </div>
                 </div>
 
-                {/* View Details */}
-                <Link
-                  to={`/product-details/${p._id}`}
-                  className="inline-block mt-3 text-sm text-blue-500 hover:underline"
-                >
-                  View Details
-                </Link>
-              </div>
-            </motion.div>
+                <div className="p-6 flex-1 flex flex-col justify-between bg-white dark:bg-slate-800/50">
+                  <div>
+                    <h3 className="text-[17px] font-bold text-slate-800 dark:text-slate-100 line-clamp-2 leading-relaxed group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                      {p.name}
+                    </h3>
+                  </div>
+
+                  <div className="flex justify-between items-end mt-5 pt-5 border-t border-slate-100 dark:border-slate-700/60">
+                    <div>
+                      <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Price</p>
+                      <p className="text-[22px] font-black tracking-tight text-cyan-600 dark:text-cyan-400">
+                        ${Number(p.price || 0).toFixed(2)}
+                      </p>
+                    </div>
+
+                    <div className="flex gap-2">
+                       <Link
+                          to={`/product-details/${p._id}`}
+                          className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 h-11 px-4 flex items-center justify-center rounded-xl font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+                        >
+                          Details
+                       </Link>
+                       <motion.button
+                         whileHover={{ scale: 1.08 }}
+                         whileTap={{ scale: 0.95 }}
+                         onClick={() => addToCart(p, 1)}
+                         className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 h-11 w-11 flex items-center justify-center rounded-xl hover:bg-cyan-600 dark:hover:bg-cyan-500 hover:text-white transition-colors shadow-md"
+                       >
+                         <FaCartPlus className="text-lg" />
+                       </motion.button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
           ))
         ) : (
-          <p className="text-center col-span-full mt-6">
+          <p className="text-center col-span-full mt-10 text-slate-500 text-lg">
             No products in {selected}
           </p>
         )}

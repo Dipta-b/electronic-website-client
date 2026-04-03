@@ -1,21 +1,20 @@
 import React from "react";
 import Carousel from "../slots/Carousel";
-import Slider from "../slots/Slider";
 import AnimatedCard from "../slots/AnimatedCard";
 import FilterSidebar from "../slots/FilterSidebar";
 
 const CarouselWithCata = () => {
   return (
-    <div className="w-full">
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch mb-12">
-        {/* Left Column Stack - Sidebar & Features */}
-        <div className="hidden lg:flex flex-col w-[300px] shrink-0 gap-8 h-full">
+    <div className="w-full max-w-7xl mx-auto mt-6 mb-16 px-4">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* Left Column - Sidebar Stack */}
+        <div className="hidden lg:flex flex-col gap-8 lg:col-span-1 h-full">
           <FilterSidebar></FilterSidebar>
           <AnimatedCard></AnimatedCard>
         </div>
 
-        {/* Right Column - Expanding Hero Carousel */}
-        <div className="flex-1 w-full flex items-center justify-center">
+        {/* Right Column - Hero Carousel */}
+        <div className="lg:col-span-3 w-full relative">
             <Carousel></Carousel>
         </div>
       </div>
