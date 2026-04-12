@@ -33,7 +33,7 @@ function LimitedOffers() {
       try {
         const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/products/activeOffers`);
         const data = await res.json();
-        setProducts(data);
+        setProducts(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error(err);
       }
