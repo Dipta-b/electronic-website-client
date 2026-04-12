@@ -31,7 +31,7 @@ function LimitedOffers() {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const res = await fetch("https://electronic-website-server.vercel.app/products/activeOffers");
+        const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/products/activeOffers`);
         const data = await res.json();
         setProducts(data);
       } catch (err) {

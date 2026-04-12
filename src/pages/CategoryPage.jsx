@@ -40,8 +40,8 @@ function CategoryPage() {
       setLoading(true);
       try {
         const url = selected === "all" 
-          ? "https://electronic-website-server.vercel.app/products"
-          : `https://electronic-website-server.vercel.app/products/category/${selected}`;
+          ? `${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/products`
+          : `${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/products/category/${selected}`;
         
         const res = await fetch(url);
         if (!res.ok) throw new Error("Failed to fetch products");

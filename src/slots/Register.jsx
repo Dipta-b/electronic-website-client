@@ -11,7 +11,7 @@ function RegisterForm() {
 
   const onSubmit = async (data) => {
     try {
-      const res = await fetch("https://electronic-website-server.vercel.app/api/auth/register", {
+      const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/api/auth/register`, {
         method: "POST",
         credentials: "include",
         headers: {

@@ -21,7 +21,7 @@ export const CartProvider = ({ children }) => {
         const fetchCart = async () => {
             try {
                 setLoading(true);
-                const res = await fetch("https://electronic-website-server.vercel.app/cart", {
+                const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/cart`, {
                     credentials: "include",
                 });
                 const data = await res.json();
@@ -42,7 +42,7 @@ export const CartProvider = ({ children }) => {
         if (!user) return;
         const syncCart = async () => {
             try {
-                await fetch("https://electronic-website-server.vercel.app/cart", {
+                await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/cart`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     credentials: "include",
@@ -83,7 +83,7 @@ export const CartProvider = ({ children }) => {
         setCartItems([]);
         if (!user) return;
         try {
-            await fetch("https://electronic-website-server.vercel.app/cart", {
+            await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/cart`, {
                 method: "DELETE",
                 credentials: "include",
             });

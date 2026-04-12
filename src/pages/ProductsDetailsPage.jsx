@@ -21,7 +21,7 @@ const ProductDetailsPage = () => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        fetch(`https://electronic-website-server.vercel.app/products/${id}`)
+        fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/products/${id}`)
             .then(res => res.json())
             .then(data => {
                 setProduct(data);

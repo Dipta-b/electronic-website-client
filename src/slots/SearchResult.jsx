@@ -16,7 +16,7 @@ const SearchResult = () => {
           return;
         }
 
-        const res = await fetch(`https://electronic-website-server.vercel.app/search?name=${query}`, {
+        const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/search?name=${query}`, {
           credentials: "include",
         });
         const data = await res.json();

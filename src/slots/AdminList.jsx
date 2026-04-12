@@ -10,7 +10,7 @@ const AdminList = () => {
   useEffect(() => {
     const fetchAdmins = async () => {
       try {
-        const res = await fetch("https://electronic-website-server.vercel.app/users/admins", {
+        const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/users/admins`, {
           credentials: "include", // include cookies/session
         });
 
@@ -35,7 +35,7 @@ const AdminList = () => {
 
 const handleUser = async(id, name)=>{
     try {
-      const res = await fetch(`https://electronic-website-server.vercel.app/users/demote/${id}`, {
+      const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/users/demote/${id}`, {
         method: "PATCH",
         credentials: "include",
       });

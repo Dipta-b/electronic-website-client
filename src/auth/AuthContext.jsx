@@ -9,7 +9,7 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("https://electronic-website-server.vercel.app/api/auth/me", {
+        const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/api/auth/me`, {
           credentials: "include",
         });
 

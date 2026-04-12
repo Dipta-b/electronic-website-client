@@ -54,7 +54,7 @@ const ProductForm = () => {
 
     const onSubmit = async (data) => {
         try {
-            const res = await fetch("https://electronic-website-server.vercel.app/products", {
+            const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/products`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

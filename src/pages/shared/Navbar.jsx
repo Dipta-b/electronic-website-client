@@ -37,7 +37,7 @@ function Navbar() {
 
   const handleSignout = async () => {
     try {
-      await fetch("https://electronic-website-server.vercel.app/api/auth/logout", {
+      await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

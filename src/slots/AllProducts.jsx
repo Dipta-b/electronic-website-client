@@ -16,7 +16,7 @@ const AllProducts = () => {
 
   // fetch products
   useEffect(() => {
-    fetch("https://electronic-website-server.vercel.app/products")
+    fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/products`)
       .then((res) => res.json())
       .then((products) => setData(Array.isArray(products) ? products : products.products || []));
   }, []);
@@ -67,7 +67,7 @@ const AllProducts = () => {
 
     if (!result.isConfirmed) return;
 
-    const res = await fetch(`https://electronic-website-server.vercel.app/products/${id}`, {
+    const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/products/${id}`, {
       method: "DELETE",
       credentials: "include",
     });

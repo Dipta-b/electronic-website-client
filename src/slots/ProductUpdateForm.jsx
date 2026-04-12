@@ -21,7 +21,7 @@ const ProductUpdateForm = () => {
     // fetch product by id
     useEffect(() => {
         const loadProduct = async () => {
-            const res = await fetch(`https://electronic-website-server.vercel.app/products/${id}`);
+            const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/products/${id}`);
             const data = await res.json();
 
             setValue("name", data.name);
@@ -86,7 +86,7 @@ const ProductUpdateForm = () => {
     // submit update
     const onSubmit = async (data) => {
 
-        const res = await fetch(`https://electronic-website-server.vercel.app/products/${id}`, {
+        const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/products/${id}`, {
             method: "PUT",
             credentials: "include",
             headers: {

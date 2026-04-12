@@ -15,7 +15,7 @@ function SearchResultPage() {
       setLoading(true);
       try {
         const res = await fetch(
-          `https://electronic-website-server.vercel.app/search?name=${name}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
+          `${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/search?name=${name}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
         );
         if (!res.ok) throw new Error("Failed to fetch products");
         const data = await res.json();

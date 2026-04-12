@@ -33,7 +33,7 @@ function BestsellerCategory() {
       setLoading(true);
       try {
         // Fetch from the local/live API correctly using cors
-        const res = await fetch(`https://electronic-website-server.vercel.app/products/category/${selected}`);
+        const res = await fetch(`${import.meta.env.DEV ? "http://localhost:5000" : "https://electronic-website-server.vercel.app"}/products/category/${selected}`);
         if (!res.ok) throw new Error("Failed to fetch products");
         const data = await res.json();
         setProducts(Array.isArray(data) ? data : data.products || []);
